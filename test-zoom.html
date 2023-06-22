@@ -13,6 +13,10 @@
 	</head>
 	<body>
 		<div>
+			<span>User Agent:&nbsp;</span>
+			<span id="user-agent-value"></span>
+		</div>
+		<div>
 			<span>Input value:&nbsp;</span>
 			<span id="input-value"></span>
 		</div>
@@ -33,6 +37,10 @@
 			<button type="button" onclick="reset()">Reset</button>
 		</div>
 		<script type="text/javascript">
+			function updateUserAgent() {
+				const userAgent = navigator.userAgent;
+				document.querySelector('#user-agent-value').innerHTML = userAgent + ' - Is Iphone: ' + userAgent.match(/iPhone/i);
+			}			
 			function updateInputValue() {
 				document.querySelector('#input-value').innerHTML = document.querySelector('#test').value;				
 			}
@@ -81,6 +89,7 @@
 				document.querySelector('#input-value').innerHTML = '';
 				document.querySelector('#transform-value').innerHTML = '';
 			}
+			updateUserAgent();
 		</script>
 	</body>
 </html>
