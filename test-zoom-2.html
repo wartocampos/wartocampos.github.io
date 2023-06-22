@@ -17,33 +17,64 @@
 			<span id="input-value"></span>
 		</div>
 		<div>
+			<span>Meta content:&nbsp;</span>
+			<span id="meta-value"></span>
+		</div>
+		<div>
 			<label for="test">Test</label>
 			<input type="text" name="test" id="test" class="test" />
 		</div>
 		<div>
-			<button type="button" onclick="transformClick()">Transform</button>
+			<button type="button" onclick="zoom1Click()">Zoom 1</button>
+			<button type="button" onclick="zoom2Click()">Zoom 2</button>
 			<button type="button" onclick="scaleClick()">Scale</button>
+			<button type="button" onclick="transformClick()">Transform</button>
+			<button type="button" onclick="metaClick()">Meta</button>
 			<button type="button" onclick="reset()">Reset</button>
 		</div>
 		<script type="text/javascript">
 			function updateInputValue() {
 				document.querySelector('#input-value').innerHTML = document.querySelector('#test').value;				
 			}
+			function zoom1Click() {
+				updateInputValue();
+				document.body.style.zoom = (window.innerWidth / window.outerWidth);
+			}
+			function zoom2Click() {
+				updateInputValue();
+				document.body.style.zoom = 1;
+			}
+			function scaleClick() {
+				updateInputValue();
+				document.body.style.scale = 1;
+			}
 			function transformClick() {
 				updateInputValue();
 				document.body.style.transform = 'scale(1)';
 			}
-			function scaleClick() {
+			function metaClick() {
 				updateInputValue();
 				
-				// forces maximum scale to 1
-				document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1');
+				// removes meta element
+				document.querySelector('meta[name="viewport"]').remove();
+
+				let metaElement = document.createElement('meta');
+				metaElement.setAttribute('name', 'viewport');
+				metaElement.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+				document.querySelector('head').appendChild(metaElement);
+				document.querySelector('#meta-value').innerHTML = document.querySelector('meta[name="viewport"]').getAttribute('content');
 
                 setTimeout(function () {
-					// resets maximum scale
-					// document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=10');
-					document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1');
-				}, 300);
+					// removes meta element
+					document.querySelector('meta[name="viewport"]').remove();
+
+					metaElement = document.createElement('meta');
+					metaElement.setAttribute('name', 'viewport');
+					metaElement.setAttribute('content', 'width=device-width, initial-scale=1');
+					document.querySelector('head').appendChild(metaElement);
+					document.querySelector('#meta-value').innerHTML = document.querySelector('meta[name="viewport"]').getAttribute('content');
+
+				}, 3000);
 			}
 			function reset() {
 				document.querySelector('#test').value = '';
