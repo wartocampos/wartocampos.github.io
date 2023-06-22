@@ -10,6 +10,14 @@
 	</head>
 	<body>
 		<div>
+			<span>Current zoom:&nbsp;</span>
+			<span id="zoom-value"></span>
+		</div>
+		<div>
+			<span>Current scale:&nbsp;</span>
+			<span id="scale-value"></span>
+		</div>
+		<div>
 			<span>Input value:&nbsp;</span>
 			<span id="input-value"></span>
 		</div>
@@ -24,10 +32,14 @@
 		<script type="text/javascript">
 			function buttonClick() {
 				document.querySelector('#input-value').innerHTML = document.querySelector('#test').value;
+				document.querySelector('#zoom-value').innerHTML = document.body.style.zoom;
+				document.querySelector('#scale-value').innerHTML = document.body.style.scale;
 			}
 			function reset() {
 				document.querySelector('#test').value = '';
 				document.querySelector('#input-value').innerHTML = '';
+				document.querySelector('#zoom-value').innerHTML = document.querySelector('#test').value;
+				document.querySelector('#scale-value').innerHTML = document.querySelector('#test').value;
 			}
 		</script>
 	</body>
